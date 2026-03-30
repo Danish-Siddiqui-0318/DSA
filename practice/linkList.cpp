@@ -2,96 +2,205 @@
 #include <cstdlib>
 using namespace std;
 
-struct Node
+// struct Node
+// {
+//     int data;
+//     Node *next;
+// };
+
+// Node *SinglyLinkList = NULL;
+
+// void Insert(int value)
+// {
+//     Node *temp = new Node;
+//     temp->data = value;
+//     temp->next = NULL;
+
+//     if (SinglyLinkList == NULL)
+//     {
+//         SinglyLinkList = temp;
+//     }
+//     else
+//     {
+//         Node *currentPtr = SinglyLinkList;
+//         while (currentPtr->next != NULL)
+//         {
+//             currentPtr = currentPtr->next;
+//         }
+//         currentPtr->next = temp;
+//     }
+// }
+
+// void Delete(int value)
+// {
+//     if (SinglyLinkList == NULL)
+//     {
+//         cout << "List is empty";
+//         return;
+//     }
+
+//     Node *temp = SinglyLinkList;
+//     Node *prev = NULL;
+
+//     if (temp->data == value)
+//     {
+//         SinglyLinkList = temp->next;
+//         delete (temp);
+//         cout << "Node Deleted";
+//         return;
+//     }
+
+//     while (temp != NULL && temp->data != value)
+//     {
+//         prev = temp;
+//         temp = temp->next;
+//     }
+//     if (temp == NULL)
+//     {
+//         cout << "Value Not Found";
+//         return;
+//     }
+
+//     prev->next = temp->next;
+//     delete (temp);
+//     cout << "Value Deleted" << endl;
+// }
+
+// void Display()
+// {
+//     if (SinglyLinkList == NULL)
+//     {
+//         cout << "List is empty";
+//         return;
+//     }
+
+//     Node *temp = SinglyLinkList;
+//     while (temp != NULL)
+//     {
+//         cout << "Data" << temp->data << endl;
+//         temp = temp->next;
+//     }
+// }
+
+class Node
 {
+public:
     int data;
     Node *next;
+
+    Node(int val)
+    {
+        data = val;
+        next = NULL;
+    }
 };
 
-Node *SinglyLinkList = NULL;
-
-void Insert(int value)
+class List
 {
-    Node *temp = new Node;
-    temp->data = value;
-    temp->next = NULL;
+    Node *head;
+    Node *tail;
 
-    if (SinglyLinkList == NULL)
+public:
+    List()
     {
-        SinglyLinkList = temp;
+        head = tail = NULL;
     }
-    else
+
+    void push_front(int val)
     {
-        Node *currentPtr = SinglyLinkList;
-        while (currentPtr->next != NULL)
+        Node *newNode = new Node(val);
+        if (head == NULL)
         {
-            currentPtr = currentPtr->next;
+            head = tail = newNode;
+            return;
         }
-        currentPtr->next = temp;
+        else
+        {
+            newNode->next = head;
+            head = newNode;
+        }
     }
-}
 
-void Delete(int value)
-{
-    if (SinglyLinkList == NULL)
+    void push_back(int val)
     {
-        cout << "List is empty";
-        return;
+        Node *newNode = new Node(val);
+        if (head == NULL)
+        {
+            head = tail = newNode;
+            return;
+        }
+        else
+        {
+            tail->next = newNode;
+            tail = newNode;
+            return;
+        }
     }
 
-    Node *temp = SinglyLinkList;
-    Node *prev = NULL;
-
-    if (temp->data == value)
+    void pop_front()
     {
-        SinglyLinkList = temp->next;
-        delete (temp);
-        cout << "Node Deleted";
-        return;
+        if (head == NULL)
+        {
+            cout << "Linklist is empty" << endl;
+            return;
+        }
+        Node *temp = head;
+        head = head->next;
+        temp->next = NULL;
+        delete temp;
     }
 
-    while (temp != NULL && temp->data != value)
+    void pop_back()
     {
-        prev = temp;
-        temp = temp->next;
-    }
-    if (temp == NULL)
-    {
-        cout << "Value Not Found";
-        return;
+        if (head == NULL)
+        {
+            cout << "LinkList is empty" << endl;
+            return;
+        }
+
+        Node *temp = head;
+        while (temp->next != tail)
+        {
+            temp = temp->next;
+        }
+        temp->next = NULL;
+        delete tail;
+        tail = temp;
     }
 
-    prev->next = temp->next;
-    delete (temp);
-    cout << "Value Deleted" << endl;
-}
-
-void Display()
-{
-    if (SinglyLinkList == NULL)
+    void print()
     {
-        cout << "List is empty";
-        return;
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        }
+        cout << "NULL" << endl;
     }
-
-    Node *temp = SinglyLinkList;
-    while (temp != NULL)
-    {
-        cout << "Data" << temp->data << endl;
-        temp = temp->next;
-    }
-}
+};
 
 int main()
 {
-    Insert(10);
-    Insert(50);
-    Insert(70);
-    Insert(90);
-    Display();
+    // Insert(10);
+    // Insert(50);
+    // Insert(70);
+    // Insert(90);
+    // Display();
 
-    Delete(70);
-    Display();
+    // Delete(70);
+    // Display();
 
+    List ll;
+
+    ll.push_front(1);
+    ll.push_front(2);
+    ll.push_front(3);
+    ll.push_back(4);
+    ll.print();
+    ll.pop_front();
+    ll.print();
+    ll.pop_back();
+    ll.print();
     return 0;
 }
