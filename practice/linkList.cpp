@@ -168,6 +168,41 @@ public:
         tail = temp;
     }
 
+    void deleteNo(int val)
+    {
+        Node *temp = head;
+        if (head == NULL)
+        {
+            cout << "LinkList is empty" << endl;
+            return;
+        }
+
+        if (head->data == val)
+        {
+            head = head->next;
+            temp->next = NULL;
+            delete temp;
+            return;
+        }
+
+        Node *prev = NULL;
+        while (temp->next != NULL && temp->data != val)
+        {
+            prev = temp;
+            temp = temp->next;
+        }
+
+        if (temp == NULL)
+        {
+            cout << "Value not found" << endl;
+            return;
+        }
+
+        prev->next = temp->next;
+        delete temp;
+        cout << "Node Deleted" << endl;
+    }
+
     void print()
     {
         Node *temp = head;
@@ -193,14 +228,15 @@ int main()
 
     List ll;
 
-    ll.push_front(1);
-    ll.push_front(2);
-    ll.push_front(3);
+    ll.push_back(1);
+    ll.push_back(2);
+    ll.push_back(3);
     ll.push_back(4);
+    ll.push_back(5);
     ll.print();
-    ll.pop_front();
+    ll.deleteNo(4);
     ll.print();
-    ll.pop_back();
-    ll.print();
+
+
     return 0;
 }
