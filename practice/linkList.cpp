@@ -208,6 +208,7 @@ public:
         Node *prev = NULL;
         Node *curr = head;
         Node *next = NULL;
+        Node *oldhead = head;
         while (curr != NULL)
         {
             next = curr->next;
@@ -215,7 +216,7 @@ public:
             prev = curr;
             curr = next;
         }
-        tail = head;
+        tail = oldhead;
         head = prev;
     }
 
