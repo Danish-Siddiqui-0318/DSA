@@ -131,6 +131,7 @@ int main()
     vector<int> arr = {3, 2, 1, 5, 6, 4};
 
     Node *root = buildBST(arr);
+    Node* insertTry=insert(root,7);
     cout << "Before" << endl;
     inOrder(root);
     cout << endl;

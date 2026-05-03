@@ -203,6 +203,22 @@ public:
         cout << "Node Deleted" << endl;
     }
 
+    void reverseList()
+    {
+        Node *prev = NULL;
+        Node *curr = head;
+        Node *next = NULL;
+        while (curr != NULL)
+        {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        tail = head;
+        head = prev;
+    }
+
     void print()
     {
         Node *temp = head;
@@ -233,10 +249,15 @@ int main()
     ll.push_back(3);
     ll.push_back(4);
     ll.push_back(5);
-    ll.print();
-    ll.deleteNo(4);
+    // ll.print();
+    // ll.deleteNo(4);
+
+    cout << "Before Reverse:\n";
     ll.print();
 
+    ll.reverseList(); // 🔥 call function
 
+    cout << "After Reverse:\n";
+    ll.print();
     return 0;
 }
