@@ -3,20 +3,43 @@
 using namespace std;
 
 // Binary Search
-int binarySearch(vector<int> arr, int tar) // Iterative
+// int binarySearch(vector<int> arr, int tar) // Iterative
+// {
+//     int st = 0;
+//     int end = arr.size() - 1;
+
+//     while (st <= end)
+//     {
+//         // int mid = (st + end) / 2;
+//         int mid = st + (end - st) / 2; // Optimization
+//         if (tar > arr[mid])
+//         {
+//             st = mid + 1;
+//         }
+//         else if (tar < arr[mid])
+//         {
+//             end = mid - 1;
+//         }
+//         else
+//         {
+//             return mid;
+//         }
+//     }
+//     return -1;
+// }
+
+int binarySearch(int target, vector<int> arr)
 {
     int st = 0;
     int end = arr.size() - 1;
-
     while (st <= end)
     {
-        // int mid = (st + end) / 2;
-        int mid = st + (end - st) / 2; // Optimization
-        if (tar > arr[mid])
+        int mid = (st + end) / 2;
+        if (target > arr[mid])
         {
             st = mid + 1;
         }
-        else if (tar < arr[mid])
+        else if (target < arr[mid])
         {
             end = mid - 1;
         }
@@ -28,18 +51,38 @@ int binarySearch(vector<int> arr, int tar) // Iterative
     return -1;
 }
 
-int binarySearch2(vector<int> arr, int tar, int str, int end) // Recursion
+// int binarySearch2(vector<int> arr, int tar, int str, int end) // Recursion
+// {
+//     if (str <= end)
+//     {
+//         int mid = str + (end - str) / 2;
+//         if (tar > arr[mid])
+//         { // 2nd half
+//             return binarySearch2(arr, tar, mid + 1, end);
+//         }
+//         else if (tar < arr[mid])
+//         {
+//             return binarySearch2(arr, tar, str, mid - 1);
+//         }
+//         else
+//         {
+//             return mid;
+//         }
+//     }
+//     return -1;
+// }
+int binarySearch2(vector<int> arr, int st, int end, int tar)
 {
-    if (str <= end)
+    if (st <= end)
     {
-        int mid = str + (end - str) / 2;
+        int mid = (st + end) / 2;
         if (tar > arr[mid])
-        { // 2nd half
-            return binarySearch2(arr, tar, mid + 1, end);
+        {
+            return binarySearch2(arr, mid + 1, end, tar);
         }
         else if (tar < arr[mid])
         {
-            return binarySearch2(arr, tar, str, mid - 1);
+            return binarySearch2(arr, st, mid - 1, tar);
         }
         else
         {
@@ -50,26 +93,61 @@ int binarySearch2(vector<int> arr, int tar, int str, int end) // Recursion
 }
 
 // Insertion Sort
+// void InsertionSort(int arr[], int n)
+// {
+//     for (int i = 1; i < n; i++)
+//     {
+//         int curr = arr[i];
+//         int prev = i - 1;
+
+//         while (prev >= 0 && arr[prev] < curr)
+//         {
+//             arr[prev + 1] = arr[prev];
+//             prev--;
+//         }
+//         arr[prev + 1] = curr; // replacing the current in its correct position
+//     }
+// }
+
 void InsertionSort(int arr[], int n)
 {
-    for (int i = 1; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
         int curr = arr[i];
         int prev = i - 1;
-
         while (prev >= 0 && arr[prev] < curr)
         {
             arr[prev + 1] = arr[prev];
             prev--;
         }
-        arr[prev + 1] = curr; // replacing the current in its correct position
+        arr[prev + 1] = curr;
     }
 }
 
+// void bubbleSort(int arr[], int n)
+// {
+
+//     for (int i = 0; i < n - 1; i++)
+//     {
+//         bool isSwap = false;
+//         for (int j = 0; j < n - i - 1; j++)
+//         {
+//             if (arr[j] > arr[j + 1])
+//             {
+//                 swap(arr[j], arr[j + 1]);
+//                 isSwap = true;
+//             }
+//         }
+//         if (!isSwap)
+//         {
+//             return;
+//         }
+//     }
+// }
+
 void bubbleSort(int arr[], int n)
 {
-
-    for (int i = 0; i < n - 1; i++)
+    for (int i = 0; int < n - 1; i++)
     {
         bool isSwap = false;
         for (int j = 0; j < n - i - 1; j++)
@@ -88,29 +166,82 @@ void bubbleSort(int arr[], int n)
 }
 
 // Selection Sort
-void SelectionSort(int arr[], int n) // O(n^2)
+// void SelectionSort(int arr[], int n) // O(n^2)
+// {
+//     for (int i = 0; i < n - 1; i++)
+//     {
+//         int smallestIdx = i; // unsorted part of array
+//         for (int j = i + 1; j < n; j++)
+//         {
+//             if (arr[j] > arr[smallestIdx])
+//             {
+//                 smallestIdx = j;
+//             }
+//         }
+//         swap(arr[i], arr[smallestIdx]);
+//     }
+// }
+
+void SelectionSort(int arr[], int n)
 {
     for (int i = 0; i < n - 1; i++)
     {
-        int smallestIdx = i; // unsorted part of array
-        for (int j = i + 1; j < n; j++)
+        int smallestIndex = i;
+        for (int j = i; j < j < n; j++)
         {
-            if (arr[j] > arr[smallestIdx])
+            if (arr[j] <= arr[smallestIndex])
             {
-                smallestIdx = j;
+                smallestIndex = j;
             }
         }
-        swap(arr[i], arr[smallestIdx]);
+        swap(arr[j], arr[smallestIndex])
     }
 }
 
 // Merge Sort
+// void merge(vector<int> &arr, int st, int mid, int end)
+// {
+//     vector<int> temp;
+//     int i = st;
+//     int j = mid + 1;
+
+//     while (i <= mid && j <= end)
+//     {
+//         if (arr[i] <= arr[j])
+//         {
+//             temp.push_back(arr[i]);
+//             i++;
+//         }
+//         else
+//         {
+//             temp.push_back(arr[j]);
+//             j++;
+//         }
+//     }
+
+//     while (i <= mid)
+//     {
+//         temp.push_back(arr[i]);
+//         i++;
+//     }
+
+//     while (j <= end)
+//     {
+//         temp.push_back(arr[j]);
+//         j++;
+//     }
+
+//     for (int idx = 0; idx < temp.size(); idx++)
+//     {
+//         arr[idx + st] = temp[idx];
+//     }
+// }
+
 void merge(vector<int> &arr, int st, int mid, int end)
 {
     vector<int> temp;
     int i = st;
     int j = mid + 1;
-
     while (i <= mid && j <= end)
     {
         if (arr[i] <= arr[j])
@@ -121,16 +252,14 @@ void merge(vector<int> &arr, int st, int mid, int end)
         else
         {
             temp.push_back(arr[j]);
-            j++;
+            j++
         }
     }
-
     while (i <= mid)
     {
         temp.push_back(arr[i]);
         i++;
     }
-
     while (j <= end)
     {
         temp.push_back(arr[j]);
@@ -142,14 +271,25 @@ void merge(vector<int> &arr, int st, int mid, int end)
         arr[idx + st] = temp[idx];
     }
 }
+// void mergeSort(vector<int> &arr, int st, int end)
+// {
+//     if (st < end)
+//     {
+//         int mid = st + (end - st) / 2;
+//         mergeSort(arr, st, mid);      // left half
+//         mergeSort(arr, mid + 1, end); // right half
+
+//         merge(arr, st, mid, end);
+//     }
+// }
+
 void mergeSort(vector<int> &arr, int st, int end)
 {
     if (st < end)
     {
-        int mid = st + (end - st) / 2;
-        mergeSort(arr, st, mid);      // left half
-        mergeSort(arr, mid + 1, end); // right half
-
+        int mid = st + end / 2;
+        mergeSort(arr, st, mid);
+        mergeSort(arr, mid + 1, end);
         merge(arr, st, mid, end);
     }
 }
@@ -207,7 +347,7 @@ int main()
     {
         cout << val << " ";
     }
-        cout << endl;
+    cout << endl;
     mergeSort(arr, 0, arr.size() - 1);
     for (int val : arr)
     {

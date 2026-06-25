@@ -72,8 +72,8 @@ void PostOrder(Node *root)
 
 int main()
 {
-    vector<int> preorder = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
-    Node *root = buildTree(preorder);
+    vector<int> bt = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
+    Node *root = buildTree(bt);
     cout << "Pre Order" << endl;
     preOrder(root);
     cout << endl;

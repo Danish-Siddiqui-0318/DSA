@@ -25,13 +25,11 @@ public:
             prev = curr;
             curr = next;
         }
-
         return prev;
     }
 };
 
-void
-printList(ListNode *head)
+void printList(ListNode *head)
 {
     while (head != NULL)
     {

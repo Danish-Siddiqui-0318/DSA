@@ -1,6 +1,71 @@
 #include <iostream>
 using namespace std;
 
+// class CircularQueue
+// {
+//     int *arr;
+//     int currSize, cap;
+//     int f, r;
+
+// public:
+//     CircularQueue(int size)
+//     {
+//         cap = size;
+//         arr = new int[cap];
+//         currSize = 0;
+//         f = 0;
+//         r = -1;
+//     }
+
+//     void push(int data)
+//     {
+//         if (currSize == cap)
+//         {
+//             cout << "CQ is full" << endl;
+//             return;
+//         }
+
+//         r = (r + 1) % cap;
+//         arr[r] = data;
+//         currSize++;
+//     }
+
+//     void pop()
+//     {
+//         if (empty())
+//         {
+//             cout << "List is empty" << endl;
+//             return;
+//         }
+//         f = (f + 1) % cap;
+//         currSize--;
+//     }
+
+//     int front()
+//     {
+//         if (empty())
+//         {
+//             cout << "List is empty" << endl;
+//             return -1;
+//         }
+//         return arr[f];
+//     }
+
+//     bool empty()
+//     {
+//         return currSize == 0;
+//     }
+
+//     void printArr()
+//     {
+//         for (int i = 0; i < cap; i++)
+//         {
+//             cout << arr[i] << " ";
+//         }
+//         cout << endl;
+//     }
+// };
+
 class CircularQueue
 {
     int *arr;
@@ -17,17 +82,21 @@ public:
         r = -1;
     }
 
+    bool empty()
+    {
+        return currSize == 0;
+    }
+
     void push(int data)
     {
-        if (currSize == cap)
+        if (curr == cap)
         {
             cout << "CQ is full" << endl;
             return;
         }
-
         r = (r + 1) % cap;
         arr[r] = data;
-        currSize++;
+        curr++;
     }
 
     void pop()
@@ -51,16 +120,11 @@ public:
         return arr[f];
     }
 
-    bool empty()
-    {
-        return currSize == 0;
-    }
-
     void printArr()
     {
         for (int i = 0; i < cap; i++)
         {
-            cout << arr[i] << " ";
+            cout << arr[i] << endl;
         }
         cout << endl;
     }
@@ -74,7 +138,7 @@ int main()
     cq.push(3);
     cq.pop();
     cq.push(4);
-    
+
     cq.printArr();
     return 0;
 }
