@@ -16,6 +16,116 @@ public:
     }
 };
 
+// Node *insert(Node *root, int val)
+// {
+//     if (root == NULL)
+//     {
+//         return new Node(val);
+//     }
+
+//     if (val < root->data)
+//     {
+//         root->left = insert(root->left, val);
+//     }
+//     else
+//     {
+//         root->right = insert(root->right, val);
+//     }
+
+//     return root;
+// }
+
+// Node *buildBST(vector<int> arr)
+// {
+//     Node *root = NULL;
+
+//     for (int val : arr)
+//     {
+//         root = insert(root, val);
+//     }
+
+//     return root;
+// }
+
+// bool Search(Node *root, int key)
+// {
+//     if (root == NULL)
+//     {
+//         return false;
+//     }
+//     if (root->data == key)
+//     {
+//         return true;
+//     }
+//     if (root->data > key)
+//     {
+//         return Search(root->left, key);
+//     }
+//     else
+//     {
+//         return Search(root->right, key);
+//     }
+// }
+
+// void inOrder(Node *root)
+// {
+//     if (root == NULL)
+//     {
+//         return;
+//     }
+//     inOrder(root->left);
+//     cout << root->data << " ";
+//     inOrder(root->right);
+// }
+
+// Node *getInOrderSuccessor(Node *root)
+// {
+//     while (root != NULL && root->left != NULL)
+//     {
+//         root = root->left;
+//     }
+//     return root;
+// }
+
+// Node *delNode(Node *root, int key)
+// {
+//     if (root == NULL)
+//     {
+//         return NULL;
+//     }
+
+//     if (key < root->data)
+//     {
+//         root->left = delNode(root->left, key);
+//     }
+//     else if (key > root->data)
+//     {
+//         root->right = delNode(root->right, key);
+//     }
+//     else
+//     {
+//         if (root->left == NULL)
+//         {
+//             Node *temp = root->right;
+//             delete root;
+//             return temp;
+//         }
+//         else if (root->right == NULL)
+//         {
+//             Node *temp = root->left;
+//             delete root;
+//             return temp;
+//         }
+//         else
+//         { // for 2 children
+//             Node *IS = getInOrderSuccessor(root->right);
+//             root->data = IS->data;
+//             root->right = delNode(root->right, IS->data);
+//         }
+//     }
+//     return root;
+// }
+
 Node *insert(Node *root, int val)
 {
     if (root == NULL)
@@ -31,23 +141,31 @@ Node *insert(Node *root, int val)
     {
         root->right = insert(root->right, val);
     }
-
     return root;
 }
 
 Node *buildBST(vector<int> arr)
 {
     Node *root = NULL;
-
     for (int val : arr)
     {
         root = insert(root, val);
     }
-
     return root;
 }
 
-bool Search(Node *root, int key)
+void Inorder(Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    Inorder(root->left);
+    cout << root->data << endl;
+    Inorder(root->right);
+}
+
+bool search(Node *root, int key)
 {
     if (root == NULL)
     {
@@ -59,23 +177,12 @@ bool Search(Node *root, int key)
     }
     if (root->data > key)
     {
-        return Search(root->left, key);
+        return search(root->left, key);
     }
     else
     {
-        return Search(root->right, key);
+        return search(root->right, key);
     }
-}
-
-void inOrder(Node *root)
-{
-    if (root == NULL)
-    {
-        return;
-    }
-    inOrder(root->left);
-    cout << root->data << " ";
-    inOrder(root->right);
 }
 
 Node *getInOrderSuccessor(Node *root)
@@ -93,7 +200,6 @@ Node *delNode(Node *root, int key)
     {
         return NULL;
     }
-
     if (key < root->data)
     {
         root->left = delNode(root->left, key);
@@ -117,7 +223,7 @@ Node *delNode(Node *root, int key)
             return temp;
         }
         else
-        { // for 2 children
+        { // 2 Childred
             Node *IS = getInOrderSuccessor(root->right);
             root->data = IS->data;
             root->right = delNode(root->right, IS->data);
@@ -131,13 +237,13 @@ int main()
     vector<int> arr = {3, 2, 1, 5, 6, 4};
 
     Node *root = buildBST(arr);
-    Node* insertTry=insert(root,7);
+    // Node *insertTry = insert(root, 7);
     cout << "Before" << endl;
-    inOrder(root);
+    Inorder(root);
     cout << endl;
-    delNode(root,5);
+    delNode(root, 5);
     cout << "After" << endl;
-    inOrder(root);
+    Inorder(root);
     cout << endl;
     return 0;
 }

@@ -7,23 +7,66 @@ class MaxHeap
     int size;
 
 public:
+    // MaxHeap()
+    // {
+    //     size = 0;
+    // }
     MaxHeap()
     {
         size = 0;
     }
 
-    insert(int val)
+    void insert()
     {
         size++;
         arr[size] = val;
         int i = size;
+        // headpify Up
         while (i > 1 && arr[i / 2])
         {
             swap(arr[i], arr[i / 2]);
             i = i / 2;
         }
     }
-    // Heapify Down
+
+    // insert(int val)
+    // {
+    //     size++;
+    //     arr[size] = val;
+    //     int i = size;
+    //     while (i > 1 && arr[i / 2])
+    //     {
+    //         swap(arr[i], arr[i / 2]);
+    //         i = i / 2;
+    //     }
+    // }
+    // // Heapify Down
+    // void heapify(int i)
+    // {
+    //     while (true)
+    //     {
+    //         int left = i * 2;
+    //         int right = i * 2 + 1;
+    //         int largest = i;
+
+    //         if (left <= size && arr[left] > arr[largest])
+    //         {
+    //             largest = left;
+    //         }
+
+    //         if (right <= size && arr[right] > arr[largest])
+    //         {
+    //             largest = right;
+    //         }
+    //         if (largest == 1)
+    //         {
+    //             break;
+    //         }
+    //         swap(arr[i], arr[largest]);
+    //         i = largest;
+    //     }
+    // }
+    // headpify down
     void heapify(int i)
     {
         while (true)
@@ -31,17 +74,15 @@ public:
             int left = i * 2;
             int right = i * 2 + 1;
             int largest = i;
-
             if (left <= size && arr[left] > arr[largest])
             {
                 largest = left;
             }
-
             if (right <= size && arr[right] > arr[largest])
             {
                 largest = right;
             }
-            if (largest == 1)
+            if (largest == i)
             {
                 break;
             }
@@ -50,6 +91,16 @@ public:
         }
     }
 
+    // void deleteRoot()
+    // {
+    //     if (size == 0)
+    //     {
+    //         return;
+    //     }
+    //     arr[1] = arr[size];
+    //     size--;
+    //     heapify(1);
+    // }
     void deleteRoot()
     {
         if (size == 0)
@@ -61,6 +112,17 @@ public:
         heapify(1);
     }
 
+    // void heapSort()
+    // {
+    //     int tempSize = size;
+    //     while (size > 1)
+    //     {
+    //         swap(arr[1], arr[size]);
+    //         size--;
+    //         heapify(1);
+    //     }
+    //     size = tempSize;
+    // }
     void heapSort()
     {
         int tempSize = size;
@@ -73,11 +135,19 @@ public:
         size = tempSize;
     }
 
+    // void print()
+    // {
+    //     for (int i = 1; i <= size; i++)
+    //     {
+    //         cout << arr[i]<<endl;
+    //     }
+    // }
+
     void print()
     {
-        for (int i = 1; i <= size; i++)
+        for (int val : arr)
         {
-            cout << arr[i]<<endl;
+            cout << arr[val] << endl;
         }
     }
 };
