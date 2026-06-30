@@ -17,34 +17,58 @@ public:
     }
 };
 
-void dijkstra(int src, vector<vector<Edge>> g, int V)
-{
-    vector<int> dist(V, INT_MAX);
+void dijkstra(int src, vector<vector<Edge>> &g, int V){
+    vector<int> dist(V, INT8_MAX);
     dist[src] = 0;
-
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; // <dist[u],u>
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; //< dist[u],u>
     pq.push({0, src});
     while (pq.size() > 0)
     {
-        int u = pq.top().second();
+        int u = pq.top().second;
         pq.pop();
-
         for (Edge e : g[u])
-        { // Egde relexation
+        { // Egde Relexation step
             if (dist[e.v] > dist[u] + e.wt)
             {
                 dist[e.v] = dist[u] + e.wt;
-                pq.push((dist[e.v], e.v))
+                pq.push({dist[e.v], e.v});
             }
         }
     }
-
     for (int i = 0; i < V; i++)
     {
         cout << dist[i] << " ";
     }
-    cout << endl;
 }
+
+// void dijkstra(int src, vector<vector<Edge>> g, int V)
+// {
+//     vector<int> dist(V, INT_MAX);
+//     dist[src] = 0;
+
+//     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; // <dist[u],u>
+//     pq.push({0, src});
+//     while (pq.size() > 0)
+//     {
+//         int u = pq.top().second();
+//         pq.pop();
+
+//         for (Edge e : g[u])
+//         { // Egde relexation
+//             if (dist[e.v] > dist[u] + e.wt)
+//             {
+//                 dist[e.v] = dist[u] + e.wt;
+//                 pq.push((dist[e.v], e.v))
+//             }
+//         }
+//     }
+
+//     for (int i = 0; i < V; i++)
+//     {
+//         cout << dist[i] << " ";
+//     }
+//     cout << endl;
+// }
 
 int main()
 {
